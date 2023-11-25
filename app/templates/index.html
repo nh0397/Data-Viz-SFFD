@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Add Plotly library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>FlareGraph</title>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </div>
+        <div class="navbar-header">
+            <h1 id="headerText">FlareGraph: Exploring Fire Department Statistics in San Francisco</h1>
+        </div>
+        <div class="contact-icons">
+            <a href="#" class="icon"><img src="{{ url_for('static', filename='home.png') }}" alt="Logo"></a> 
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="sidenav" id="sidenav">
+            <button class="collapse-btn" onclick="toggleSidebar()">☰</button>
+            <div class="sidebar-content">
+                <button onclick="displayPlot('section1')">
+                    <i class="fas fa-home"></i><span class="nav-text">Section 1</span>
+                </button>
+                <button onclick="displayPlot('section2')">
+                    <i class="fas fa-star"></i><span class="nav-text">Section 2</span>
+                </button>
+                <button onclick="displayPlot('section3')">
+                    <i class="fas fa-cogs"></i><span class="nav-text">Section 3</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sections for Plots -->
+        <div id="section1" class="section">
+            <!-- Plotly graph will be displayed here -->
+        </div>
+        <div id="section2" class="section">
+            <!-- Plotly graph will be displayed here -->
+        </div>
+        <div id="section3" class="section">
+            <!-- Plotly graph will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidenav');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        function displayPlot(sectionId) {
+            // Clear previous content
+            document.getElementById(sectionId).innerHTML = "";
+
+            // Create a sample Plotly plot (replace this with your actual plots)
+            const data = [{ x: [1, 2, 3, 4], y: [10, 11, 12, 13], type: 'scatter' }];
+            Plotly.newPlot(sectionId, data);
+        }
+    </script>
+
+</body>
+</html>
