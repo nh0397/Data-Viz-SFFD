@@ -5,6 +5,9 @@ from dash import html, Output, Input, callback
 from dash_iconify import DashIconify
 from dash import dcc
 
+# Define the common text color
+text_color = "rgb(255, 107, 107)"
+
 layout = html.Div(
     [
         dmc.Button(
@@ -17,7 +20,7 @@ layout = html.Div(
                 "",
             ],
             id="drawer-transition-button",
-            style={"background-color": "transparent", "border": "none", "color": "rgb(255, 107, 107)"},
+            style={"background-color": "transparent", "border": "none", "color": text_color},
         ),
         dmc.Drawer(
             title="Navigate through here",
@@ -27,55 +30,59 @@ layout = html.Div(
                     [
                         html.Li(
                             dcc.Link(
-                                href="/",
-                                children=[
-                                    DashIconify(
-                                        icon="bi:house-door",
-                                        width=22,
-                                        style={"margin-right": "8px"},
-                                    ),
-                                    "Home",
-                                ],
-                            ),
-                        ),
-                        html.Li(
-                            dcc.Link(
                                 href="/page1",
                                 children=[
                                     DashIconify(
-                                        icon="bi:gear",
+                                        icon="bi:file-earmark-text",
                                         width=22,
-                                        style={"margin-right": "8px"},
+                                        style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "Settings",
+                                    "Primary Causes of Fire-related Calls-for-Service",
                                 ],
                             ),
+                            style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
+                        ),
+                        html.Li(
+                            dcc.Link(
+                                href="/page2",
+                                children=[
+                                    DashIconify(
+                                        icon="bi:bar-chart-line",
+                                        width=22,
+                                        style={"margin-right": "8px", "color": text_color},
+                                    ),
+                                    "Patterns in Fire Incidents",
+                                ],
+                            ),
+                            style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
                         ),
                         html.Li(
                             dcc.Link(
                                 href="/page3",
                                 children=[
                                     DashIconify(
-                                        icon="bi:person",
+                                        icon="bi:graph-up",
                                         width=22,
-                                        style={"margin-right": "8px"},
+                                        style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "Profile",
+                                    "Patterns and Trends in Historical Fire Data",
                                 ],
                             ),
+                            style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
                         ),
                         html.Li(
                             dcc.Link(
-                                href="/page4",
+                                href="/page5",
                                 children=[
                                     DashIconify(
-                                        icon="bi:info-circle",
+                                        icon="bi:people",
                                         width=22,
-                                        style={"margin-right": "8px"},
+                                        style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "About",
+                                    "User Empowerment",
                                 ],
                             ),
+                            style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
                         ),
                     ],
                     style={"list-style-type": "disc", "padding-left": "20px"},  # Use "disc" for bullet points

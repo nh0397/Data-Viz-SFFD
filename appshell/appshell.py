@@ -3,7 +3,10 @@ import dash_mantine_components as dmc
 from dash_iconify import DashIconify
 from dash import Output, Input, clientside_callback, html, dcc, page_container, State
 from pages.home.homepage import layout as create_homepage_content  # Import the correct function
-from pages.page1 import layout as page1_content  # Import the page1 layout
+from pages.page1 import layout as page1_content
+from pages.page2 import layout as page2_content
+from pages.page3 import layout as page3_content
+from pages.page5 import layout as page5_content
 
 def create_home_link(label: str) -> dmc.Anchor:
     return dmc.Anchor(
@@ -163,6 +166,12 @@ def create_appshell(app):
 def display_page(pathname):
     if pathname == "/page1":
         return page1_content
+    elif pathname == '/page2':
+        return page2_content
+    elif pathname == '/page3':
+        return page3_content
+    elif pathname == '/page5':
+        return page5_content
     else:
         return create_homepage_content
 
