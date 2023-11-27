@@ -5,7 +5,7 @@ from dash import html
 from dash import dcc
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
 
-df_call_for_service = pd.read_csv("C:/Users/sandh/OneDrive/Desktop/SFSU SEM 1/sem_proj_dataviz/SF_FD.csv")
+df_call_for_service = pd.read_csv("/Users/parthdesai/Downloads/SF_FD.csv")
 # Extract latitude and longitude from the 'location' column
 df_call_for_service['lat'], df_call_for_service['lon'] = zip(*df_call_for_service['Location'].str.strip('()').str.split(', ').apply(lambda x: (float(x[0]), float(x[1]))))
 call_finaldisp_df = df_call_for_service.groupby('Call Final Disposition')['Location'].nunique()
@@ -82,6 +82,31 @@ fig_3d_bubble.update_layout(
     paper_bgcolor='lightgray'
 )
 
+fire_department_calls_for_service = pd.read_csv('/Users/parthdesai/Downloads/Fire_Department_Calls_for_Service.csv', low_memory = False)
+
+# Convert date columns to datetime
+date_columns = ['Call Date', 'Watch Date', 'Received DtTm', 'Dispatch DtTm', 'Response DtTm', 'On Scene DtTm', 'Available DtTm']
+for col in date_columns:
+    fire_department_calls_for_service[col] = pd.to_datetime(fire_department_calls_for_service[col])
+
+# Assuming 'case_location' contains point data in a format like 'POINT (longitude latitude)'
+# We need to split those into two separate columns for latitude and longitude
+fire_department_calls_for_service[['longitude', 'latitude']] = fire_department_calls_for_service['case_location'].str.extract(r'POINT \(([^ ]+) ([^ ]+)\)').astype(float)
+
+# Trend over years
+fire_department_calls_for_service['year'] = fire_department_calls_for_service['Call Date'].dt.year
+yearly_calls = fire_department_calls_for_service.groupby('year').size()
+
+# Plotting yearly trend
+fig_yearly_trend = px.line(x=yearly_calls.index, y=yearly_calls.values, labels={'x': 'Year', 'y': 'Number of Calls'})
+fig_yearly_trend.update_layout(title='Yearly Calls Trend')
+
+# Plotting a geographical scatter plot for the incidents
+# Adjust mapbox style as needed
+fig_map = px.scatter_mapbox(fire_department_calls_for_service, lat='latitude', lon='longitude', zoom=12, height=500,
+                            color='Call Type Group', title='Calls by Location')
+fig_map.update_layout(mapbox_style="open-street-map")
+
 layout = html.Div(
     [
         html.Div(
@@ -106,9 +131,15 @@ layout = html.Div(
         dcc.Graph(
             id='example-graph3',
             figure=fig_column_chart
+        ),
+        dcc.Graph(
+            id='example-graph4',
+            figure=fig_map
+        ),
+        dcc.Graph(
+            id='example-graph5',
+            figure=fig_yearly_trend
         )
     ],
-    style={"margin-top": "100px"},
-
-    
+    style={"margin-top": "100px"}    
 )
