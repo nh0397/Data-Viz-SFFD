@@ -34,12 +34,19 @@ neighborhood_counts.columns = ['Neighborhood', 'Count']
 # Visualize the number of incidents by Neighborhood
 fig_neighborhood = px.bar(neighborhood_counts, x='Neighborhood', y='Count', title='Incident Counts by Neighborhood')
 
-# Response time analysis (difference between Received DtTm and On Scene DtTm)
-fire_department_calls_for_service['Response Time'] = (fire_department_calls_for_service['On Scene DtTm'] - fire_department_calls_for_service['Received DtTm']).dt.total_seconds() / 60  # Convert to minutes
+# Convert 'Received DtTm' and 'On Scene DtTm' to datetime objects
+fire_department_calls_for_service['Received DtTm'] = pd.to_datetime(fire_department_calls_for_service['Received DtTm'])
+fire_department_calls_for_service['On Scene DtTm'] = pd.to_datetime(fire_department_calls_for_service['On Scene DtTm'])
+
+# Calculate Response Time in minutes
+fire_department_calls_for_service['Response Time'] = (fire_department_calls_for_service['On Scene DtTm'] - fire_department_calls_for_service['Received DtTm']).dt.total_seconds() / 60
+
+# Group by neighborhood and calculate the mean response time
 response_time_neighborhood = fire_department_calls_for_service.groupby('Neighborhooods - Analysis Boundaries')['Response Time'].mean().reset_index()
 
-# Visualize the average response time by Neighborhood
+# Visualize the average response time by Neighborhood using Plotly Express
 fig_response_time = px.bar(response_time_neighborhood, x='Neighborhooods - Analysis Boundaries', y='Response Time', title='Average Response Time by Neighborhood')
+fig_response_time.update_layout(xaxis_title='Neighborhood', yaxis_title='Average Response Time (minutes)')
 
 layout = html.Div(
     [
