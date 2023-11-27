@@ -3,6 +3,21 @@
 from dash import html
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
 
+
+'''# Convert columns to datetime objects
+fire_incidents['Alarm DtTm'] = pd.to_datetime(fire_incidents['Alarm DtTm'])
+fire_incidents['Arrival DtTm'] = pd.to_datetime(fire_incidents['Arrival DtTm'])
+
+# Calculate the time differences
+fire_incidents['Time Difference'] = fire_incidents['Arrival DtTm'] - fire_incidents['Alarm DtTm']
+
+# Calculate the mean time difference
+mean_time_difference = fire_incidents['Time Difference'].mean()
+
+print(f"Mean Time Difference between Alarm ringing and the Arrival of Fire Engine : {mean_time_difference}")'''
+
+
+
 layout = html.Div(
     [
         html.Div(
