@@ -8,8 +8,8 @@ from dash import html
 from dash import dcc
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
 
-fire_incidents = pd.read_csv("C:/Users/sandh/OneDrive/Desktop/SFSU SEM 1/sem_proj_dataviz/Fire_Incidents.csv", low_memory = False)
-fire_violations = pd.read_csv("C:/Users/sandh/OneDrive/Desktop/SFSU SEM 1/sem_proj_dataviz/Fire_Violations_20231011.csv")
+fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
+fire_violations = pd.read_csv("/Users/parthdesai/Downloads/Fire_Violations_20231011.csv")
 
 # Group by district and calculate the total count of violation codes
 district_counts = fire_violations.groupby('neighborhood district')['violation item'].count().reset_index(name='count')
@@ -88,7 +88,7 @@ fire_violations['close date'] = pd.to_datetime(fire_violations['close date'])
 
 fig4 = px.violin(fire_violations, x='Status', y='close date', title='Closing Dates by Status (Violin Plot)')
 
-fire_incidents = pd.read_csv("C:/Users/sandh/OneDrive/Desktop/SFSU SEM 1/sem_proj_dataviz/Fire_Incidents.csv", low_memory = False)
+fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
 # Convert columns to datetime objects
 fire_incidents['Alarm DtTm'] = pd.to_datetime(fire_incidents['Alarm DtTm'])
 fire_incidents['Arrival DtTm'] = pd.to_datetime(fire_incidents['Arrival DtTm'])
@@ -161,19 +161,19 @@ layout = html.Div(
             style={"width": "95%", "float": "left", "height": "calc(100vh - 100px)", "padding": "20px"},
         ),
         dcc.Graph(
-            id='example-graph1',
+            id='example-graph7',
             figure=fig2
         ),
         dcc.Graph(
-            id='example-graph2',
+            id='example-graph8',
             figure=fig3
         ),
         dcc.Graph(
-            id='example-graph3',
+            id='example-graph9',
             figure=fig4
         ),
         dcc.Graph(
-            id='example-graph4',
+            id='example-graph10',
             figure=fig1
         )
 

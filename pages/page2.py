@@ -6,7 +6,7 @@ import pandas as pd
 from dash import dcc
 import plotly.express as px
 
-fire_incidents = pd.read_csv("C:/Users/sandh/OneDrive/Desktop/SFSU SEM 1/sem_proj_dataviz/Fire_Incidents.csv", low_memory = False)
+fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
 
 # Convert the column to datetime if it's not already in datetime format
 fire_incidents['Incident Date'] = pd.to_datetime(fire_incidents['Incident Date'])
@@ -34,7 +34,7 @@ layout = html.Div(
             style={"width": "95%", "float": "left", "height": "calc(100vh - 100px)", "padding": "20px"},
         ),
         dcc.Graph(
-            id='example-graph3',
+            id='example-graph6',
             figure=fig_timeseries
         )
     ],
