@@ -4,8 +4,8 @@ import plotly.express as px
 from dash import html
 from dash import dcc
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
+from pages.load_data import df_call_for_service
 
-df_call_for_service = pd.read_csv("/Users/parthdesai/Downloads/SF_FD.csv")
 # Extract latitude and longitude from the 'location' column
 df_call_for_service['lat'], df_call_for_service['lon'] = zip(*df_call_for_service['Location'].str.strip('()').str.split(', ').apply(lambda x: (float(x[0]), float(x[1]))))
 call_finaldisp_df = df_call_for_service.groupby('Call Final Disposition')['Location'].nunique()

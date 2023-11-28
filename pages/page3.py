@@ -7,9 +7,10 @@ from plotly.subplots import make_subplots
 from dash import html
 from dash import dcc
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
+from pages.load_data import fire_incidents,fire_violations
+from pages.load_data import fire_incidents
 
-fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
-fire_violations = pd.read_csv("/Users/parthdesai/Downloads/Fire_Violations_20231011.csv")
+
 
 # Group by district and calculate the total count of violation codes
 district_counts = fire_violations.groupby('neighborhood district')['violation item'].count().reset_index(name='count')
@@ -88,7 +89,6 @@ fire_violations['close date'] = pd.to_datetime(fire_violations['close date'])
 
 fig4 = px.violin(fire_violations, x='Status', y='close date', title='Closing Dates by Status (Violin Plot)')
 
-fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
 # Convert columns to datetime objects
 fire_incidents['Alarm DtTm'] = pd.to_datetime(fire_incidents['Alarm DtTm'])
 fire_incidents['Arrival DtTm'] = pd.to_datetime(fire_incidents['Arrival DtTm'])

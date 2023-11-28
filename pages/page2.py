@@ -5,8 +5,7 @@ from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar la
 import pandas as pd
 from dash import dcc
 import plotly.express as px
-
-fire_incidents = pd.read_csv("/Users/parthdesai/Downloads/Fire_Incidents.csv", low_memory = False)
+from pages.load_data import fire_incidents
 
 # Convert the column to datetime if it's not already in datetime format
 fire_incidents['Incident Date'] = pd.to_datetime(fire_incidents['Incident Date'])
