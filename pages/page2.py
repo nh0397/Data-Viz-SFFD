@@ -5,20 +5,9 @@ from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar la
 import pandas as pd
 from dash import dcc
 import plotly.express as px
-from pages.load_data import fire_incidents
+from appshell.data_loader import fig_timeseries
 
-# Convert the column to datetime if it's not already in datetime format
-fire_incidents['Incident Date'] = pd.to_datetime(fire_incidents['Incident Date'])
-
-# Group by date and count occurrences
-df_grouped_2 = fire_incidents.groupby(fire_incidents['Incident Date'].dt.date).size().reset_index(name='Frequency')
-
-# Create area chart
-fig_timeseries = px.area(df_grouped_2, x='Incident Date', y='Frequency', labels={'Incident Date': 'Incident Date', 'Frequency': 'Number of Fire Incidents'}, title='Time Series Area Chart')
-
-
-
-
+# Define the layout for page2
 layout = html.Div(
     [
         html.Div(
@@ -27,15 +16,14 @@ layout = html.Div(
         ),
         html.Div(
             [
-                html.H1("Welcome to the page2", style={"color": "rgb(255, 107, 107)", "text-align": "center"}),
-                # Add other components as needed
+                html.H2("Patterns in Fire Incidents", style={"color": "rgb(255, 107, 107)", "text-align": "center", "margin-top": "20px"}),
+                dcc.Graph(
+                    id='example-graph6',
+                    figure=fig_timeseries,
+                    style={"width": "75%", "height": "90%", "margin-left": "12vw", "margin-top": "8vh", "display": "block"}
+                ),
             ],
-            style={"width": "95%", "float": "left", "height": "calc(100vh - 100px)", "padding": "20px"},
         ),
-        dcc.Graph(
-            id='example-graph6',
-            figure=fig_timeseries
-        )
     ],
     style={"margin-top": "100px"},
 )

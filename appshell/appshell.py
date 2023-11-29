@@ -1,36 +1,13 @@
 # appshell/appshell.py
 import dash_mantine_components as dmc
 from dash_iconify import DashIconify
-from dash import Output, Input, clientside_callback, html, dcc, page_container, State
-from pages.home.homepage import layout as create_homepage_content  # Import the correct function
+from dash import Output, Input, clientside_callback, html, dcc
+from pages.home.homepage import layout as create_homepage_content
 from pages.page1 import layout as page1_content
 from pages.page2 import layout as page2_content
 from pages.page3 import layout as page3_content
 from pages.page5 import layout as page5_content
-
-def create_home_link(label: str) -> dmc.Anchor:
-    return dmc.Anchor(
-        label,
-        size="xl",
-        href="/",
-        underline=False,
-    )
-
-def create_header_link(icon: str, href: str, size: int=22, color: str="red") -> dmc.Anchor:
-    return dmc.Anchor(
-        dmc.ThemeIcon(
-            DashIconify(
-                icon=icon,
-                width=size,
-            ),
-            variant="outline",
-            radius=30,
-            size=36,
-            color=color,
-        ),
-        href=href,
-        target="_blank",
-    )
+from dash.dependencies import State
 
 def create_home_link(label: str, icon=None) -> dmc.Anchor:
     if icon:
@@ -57,6 +34,22 @@ def create_home_link(label: str, icon=None) -> dmc.Anchor:
             href="/",
             underline=False,
         )
+
+def create_header_link(icon: str, href: str, size: int=22, color: str="red") -> dmc.Anchor:
+    return dmc.Anchor(
+        dmc.ThemeIcon(
+            DashIconify(
+                icon=icon,
+                width=size,
+            ),
+            variant="outline",
+            radius=30,
+            size=36,
+            color=color,
+        ),
+        href=href,
+        target="_blank",
+    )
 
 def create_header() -> dmc.Header:
     return dmc.Header(
@@ -102,15 +95,12 @@ def create_header() -> dmc.Header:
                             ),
                             dmc.Col(
                                 span="auto",
-                                style={"display": "flex", "alignItems": "center", "flex-direction":"row-reverse"},  # Center align the content vertically
+                                style={"display": "flex", "alignItems": "center", "flex-direction": "row-reverse"},
                                 children=dmc.Group(
                                     position="right",
                                     spacing="xl",
                                     children=[
-                                        create_header_link(
-                                            "bxs:contact",
-                                            "https://github.com/",
-                                        ),
+                                        create_home_link("ic:baseline-home", icon="ic:baseline-home"),
                                         dmc.ActionIcon(
                                             DashIconify(
                                                 icon="radix-icons:blending-mode", width=22
@@ -164,15 +154,18 @@ def create_appshell(app):
     )
 
 def display_page(pathname):
-    if pathname == "/page1":
-        return page1_content
-    elif pathname == '/page2':
-        return page2_content
-    elif pathname == '/page3':
-        return page3_content
-    elif pathname == '/page5':
+    if pathname == "/page5":
+        # Pass the dataset to the layout
         return page5_content
+    elif pathname == "/page3":
+        return page3_content
+    elif pathname == "/page1":
+        # Pass the dataset to the layout
+        return page1_content
+    elif pathname == "/page2":
+        return page2_content
     else:
+        # If the pathname doesn't match any known pages, display the homepage
         return create_homepage_content
 
 clientside_callback(
