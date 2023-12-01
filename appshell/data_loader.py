@@ -1,4 +1,4 @@
-# data_loader.py
+# appshell/data_loader.py
 import pandas as pd
 import plotly.express as px
 import plotly.express as px
@@ -6,9 +6,22 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
 
-df_call_for_service = pd.read_csv('./Data/SF_FD.csv', low_memory = False)
-fire_incidents = pd.read_csv("./Data/Fire_Incidents.csv", low_memory = False)
-fire_violations = pd.read_csv("./Data/Fire_Violations_20231011.csv")
+# Lazy load data
+df_call_for_service = None
+fire_incidents = None
+fire_violations = None
+
+def load_data():
+    global df_call_for_service, fire_incidents, fire_violations
+    if df_call_for_service is None:
+        df_call_for_service = pd.read_pickle('./Data/df_call_for_service.pkl')
+    if fire_incidents is None:
+        fire_incidents = pd.read_pickle('./Data/fire_incidents.pkl')
+    if fire_violations is None:
+        fire_violations = pd.read_pickle('./Data/fire_violations.pkl')
+
+# Load data at the beginning
+load_data()
 
 # PAGE 5 Data 
 
