@@ -72,7 +72,7 @@ layout = html.Div(
                         ),
                         html.Li(
                             dcc.Link(
-                                href="/page5",
+                                href="/page4",
                                 children=[
                                     DashIconify(
                                         icon="bi:people",

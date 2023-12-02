@@ -2,8 +2,17 @@
 import pandas as pd
 import plotly.express as px
 from dash import html, dcc
+from dash.dcc import Loading
 from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
-from appshell.data_loader import fig_line_chart, fig_3d_bubble, fig_column_chart, fig_map, fig_yearly_trend
+from appshell.data_loader import fig_column_chart, pie_visual_chart, fig_map
+
+graph_style = {
+    "width": "75%",
+    "height": "90%",
+    "margin-left": "12vw",
+    "margin-top": "4vh",
+    "display": "block",
+}  # Adjusted styles for the graphs
 
 # Define the layout for page1
 layout = html.Div(
@@ -25,38 +34,9 @@ layout = html.Div(
                 dcc.Tabs(
                     [
                         dcc.Tab(
-                            label="Line Chart",
-                            children=[
-                                dcc.Graph(
-                                    id="example-graph1",
-                                    figure=fig_line_chart,
-                                    style={
-                                        "width": "100%",
-                                        "height": "100%",
-                                        "margin-top": "20px",
-                                        "display": "block",
-                                    },
-                                )
-                            ],
-                        ),
-                        dcc.Tab(
-                            label="3D Bubble Chart",
-                            children=[
-                                dcc.Graph(
-                                    id="example-graph2",
-                                    figure=fig_3d_bubble,
-                                    style={
-                                        "width": "100%",
-                                        "height": "100%",
-                                        "margin-top": "20px",
-                                        "display": "block",
-                                    },
-                                )
-                            ],
-                        ),
-                        dcc.Tab(
                             label="Column Chart",
                             children=[
+                                html.H3("Count of Final Calls of Distress", style={"text-align": "center"}),
                                 dcc.Graph(
                                     id="example-graph3",
                                     figure=fig_column_chart,
@@ -70,8 +50,29 @@ layout = html.Div(
                             ],
                         ),
                         dcc.Tab(
+                            label="Pie Chart",
+                            children=[
+                                Loading(
+                                    type="circle",
+                                    children=[
+                                        html.Div(
+                                            [
+                                                html.H3("Types of Final Call Distress", style={"text-align": "center"}),
+                                                dcc.Graph(
+                                                    id='example-graph7',
+                                                    figure=pie_visual_chart,
+                                                    style={**graph_style}  # Apply the common style for spacing
+                                                ),
+                                            ],
+                                        ),
+                                    ]
+                                )
+                            ],
+                        ),
+                        dcc.Tab(
                             label="Map",
                             children=[
+                                html.H3("Different Call Types", style={"text-align": "center"}),
                                 dcc.Graph(
                                     id="example-graph4",
                                     figure=fig_map,
@@ -83,22 +84,7 @@ layout = html.Div(
                                     },
                                 )
                             ],
-                        ),
-                        dcc.Tab(
-                            label="Yearly Trend",
-                            children=[
-                                dcc.Graph(
-                                    id="example-graph5",
-                                    figure=fig_yearly_trend,
-                                    style={
-                                        "width": "100%",
-                                        "height": "100%",
-                                        "margin-top": "20px",
-                                        "display": "block",
-                                    },
-                                )
-                            ],
-                        ),
+                        )
                     ]
                 ),
             ],

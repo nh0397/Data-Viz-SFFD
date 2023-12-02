@@ -6,7 +6,7 @@ from pages.home.homepage import layout as create_homepage_content
 from pages.page1 import layout as page1_content
 from pages.page2 import layout as page2_content
 from pages.page3 import layout as page3_content
-from pages.page5 import layout as page5_content
+from pages.page4 import layout as page4_content
 from dash.dependencies import State
 
 def create_home_link(label: str, icon=None) -> dmc.Anchor:
@@ -154,9 +154,9 @@ def create_appshell(app):
     )
 
 def display_page(pathname):
-    if pathname == "/page5":
+    if pathname == "/page4":
         # Pass the dataset to the layout
-        return page5_content
+        return page4_content
     elif pathname == "/page3":
         return page3_content
     elif pathname == "/page1":
