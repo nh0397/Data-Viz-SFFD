@@ -23,7 +23,7 @@ layout = html.Div(
         ),
         html.Div(
             [
-                html.H2("User Empowerment", style=heading_style),
+                html.H2("Incident & Response Time Analysis", style=heading_style),
                 dcc.Tabs(
                     [
                         dcc.Tab(

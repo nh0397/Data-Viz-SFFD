@@ -24,7 +24,7 @@ layout = html.Div(
         html.Div(
             [
                 html.H2(
-                    "Fire Incidents Analysis",
+                    "Primary Causes of Fire-Related Calls",
                     style={
                         "color": "rgb(255, 107, 107)",
                         "text-align": "center",

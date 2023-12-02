@@ -37,7 +37,7 @@ layout = html.Div(
                                         width=22,
                                         style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "Primary Causes of Fire-related Calls-for-Service",
+                                    "Primary Causes of Fire-Related Calls",
                                 ],
                             ),
                             style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
@@ -51,7 +51,7 @@ layout = html.Div(
                                         width=22,
                                         style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "Patterns in Fire Incidents",
+                                    "Annual Trend Analysis of Incidents",
                                 ],
                             ),
                             style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
@@ -65,7 +65,7 @@ layout = html.Div(
                                         width=22,
                                         style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "Patterns and Trends in Historical Fire Data",
+                                    "Feature Analysis and Correlation",
                                 ],
                             ),
                             style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
@@ -79,7 +79,21 @@ layout = html.Div(
                                         width=22,
                                         style={"margin-right": "8px", "color": text_color},
                                     ),
-                                    "User Empowerment",
+                                    "Incident & Response Time Analysis",
+                                ],
+                            ),
+                            style={"margin-bottom": "10px"},  # Add margin-bottom for spacing
+                        ),
+                        html.Li(
+                            dcc.Link(
+                                href="/page5",
+                                children=[
+                                    DashIconify(
+                                        icon="bi:book",
+                                        width=22,
+                                        style={"margin-right": "8px", "color": text_color},
+                                    ),
+                                    "Conclusion",
                                 ],
                             ),
                             style={"margin-bottom": "10px"},  # Add margin-bottom for spacing

@@ -7,6 +7,7 @@ from pages.page1 import layout as page1_content
 from pages.page2 import layout as page2_content
 from pages.page3 import layout as page3_content
 from pages.page4 import layout as page4_content
+from pages.page5 import layout as page5_content
 from dash.dependencies import State
 
 def create_home_link(label: str, icon=None) -> dmc.Anchor:
@@ -144,7 +145,7 @@ def create_appshell(app):
             dmc.NotificationsProvider(
                 [
                     create_header(),  # Pass the app object to create_header
-                ]
+                ],
             ),
             html.Div(id="page-content"),  # Placeholder for page content
         ],
@@ -154,16 +155,18 @@ def create_appshell(app):
     )
 
 def display_page(pathname):
-    if pathname == "/page4":
-        # Pass the dataset to the layout
-        return page4_content
-    elif pathname == "/page3":
-        return page3_content
-    elif pathname == "/page1":
+    if pathname == "/page1":
         # Pass the dataset to the layout
         return page1_content
     elif pathname == "/page2":
         return page2_content
+    elif pathname == "/page3":
+        # Pass the dataset to the layout
+        return page3_content
+    elif pathname == "/page4":
+        return page4_content
+    elif pathname == "/page5":
+        return page5_content
     else:
         # If the pathname doesn't match any known pages, display the homepage
         return create_homepage_content
