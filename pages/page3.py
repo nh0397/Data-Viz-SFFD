@@ -25,7 +25,7 @@ layout = html.Div(
         ),
         html.Div(
             [
-                html.H2("Patterns and Trends in Historical Fire Data", style=heading_style),
+                html.H2("Feature Analysis and Correlation", style=heading_style),
                 dcc.Tabs(
                     [
                         dcc.Tab(
