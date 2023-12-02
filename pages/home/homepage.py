@@ -13,7 +13,7 @@ layout = html.Div(
                 html.Img(src="../../../assets/SFFD.jpg", style={"width": "60%", "height": "80%", "margin-left": "18vw", "margin-top": "4vh", "display": "block", "border-radius": "8px"}),
                 html.Div(
                     id="about-project",
-                    style={"max-width": "800px", "margin": "20px auto", "padding": "20px", "border": "1px solid #ddd", "border-radius": "8px", "background-color": "#f7f7f7"},  # Adjusted padding after the border
+                    style={"max-width": "800px", "margin": "20px auto", "padding": "20px", "border": "1px solid #ddd", "border-radius": "8px"},  # Adjusted padding after the border
                     children=[
                         html.H2("About the Project", style={"color": "rgb(255, 107, 107)"}),
                         dcc.Markdown(
