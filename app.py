@@ -21,4 +21,4 @@ server = app.server
 app.callback(Output("page-content", "children"), Input("url", "pathname"))(display_page)
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True,use_reloader=False)
