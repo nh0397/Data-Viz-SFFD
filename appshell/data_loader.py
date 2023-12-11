@@ -15,18 +15,18 @@ class DataHandler:
         """Load data only if not already loaded."""
         if self.df_call_for_service.empty:
             try:
-                self.df_call_for_service = pd.read_pickle('/Users/parthdesai/Documents/GitHub/Data-Viz-SFFD/appshell/Data/df_call_for_service.pkl')
+                self.df_call_for_service = pd.read_pickle('./Data/df_call_for_service.pkl')
                 self.df_call_for_service_sample = self.df_call_for_service.sample(1000)
             except FileNotFoundError:
                 print("Warning: df_call_for_service.pkl not found.")
         if self.fire_incidents.empty:
             try:
-                self.fire_incidents = pd.read_pickle('/Users/parthdesai/Documents/GitHub/Data-Viz-SFFD/appshell/Data/fire_incidents.pkl')
+                self.fire_incidents = pd.read_pickle('./Data/fire_incidents.pkl')
             except FileNotFoundError:
                 print("Warning: fire_incidents.pkl not found.")
         if self.fire_violations.empty:
             try:
-                self.fire_violations = pd.read_pickle('/Users/parthdesai/Documents/GitHub/Data-Viz-SFFD/appshell/Data/fire_violations.pkl')
+                self.fire_violations = pd.read_pickle('./Data/fire_violations.pkl')
             except FileNotFoundError:
                 print("Warning: fire_violations.pkl not found.")
 
@@ -102,12 +102,13 @@ fig_line_chart = px.line(data_calltype, x='Call Type', y='Count',
 
 # Set background color for the line chart
 fig_line_chart.update_layout(
-    plot_bgcolor='white',
-    paper_bgcolor='rgba(0,0,0,0)',
     margin=dict(l=20, r=20, t=80, b=20),
+    showlegend=False,
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
     xaxis=dict(gridcolor='lightgray'),
     yaxis=dict(gridcolor='lightgray'),
-    showlegend=False
+    font_color="#777",
 )
 
 # Update x-axis tick angle for better readability
@@ -119,22 +120,21 @@ fig_line_chart.update_xaxes(tickangle=45)
 # Create a visually appealing 3D Bubble Chart
 fig_3d_bubble = px.scatter_3d(data_calltype, x='Call Type', y='Count', z='Count', color='Call Type', size='Count', labels={'Count': 'Count', 'Call Type': 'Call Type'}, height=700)
 
-
-# Set background color for the bubble chart
+# Update layout for the 3D Bubble Chart
 fig_3d_bubble.update_layout(
-    plot_bgcolor='white',
-    paper_bgcolor='rgba(0, 0, 0, 0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    font_color="#777",
     margin=dict(l=20, r=20, t=80, b=20),
     scene=dict(
         xaxis=dict(gridcolor='lightgray'),
         yaxis=dict(gridcolor='lightgray'),
         zaxis=dict(gridcolor='lightgray'),
     ),
-    showlegend=False
+    showlegend=False,
+    xaxis_tickangle=45,  # Update x-axis tick angle for better readability
 )
 
-# Update x-axis tick angle for better readability
-fig_3d_bubble.update_layout(scene=dict(xaxis=dict(tickangle=45)))
 
 ######################## TAB 3 - COLUMN CHART ########################
 
@@ -160,8 +160,11 @@ fig_column_chart = px.bar(data_finalcall, x='Final Call Distress', y='Count',
 
 # Set background color for the column chart
 fig_column_chart.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777",
 )
 
 ######################## TAB 4 - SCATTER MAPBOX ########################
@@ -175,6 +178,13 @@ def create_scatter_mapbox(data, lat, lon, zoom, height, color):
 
 # Plotting a geographical scatter plot for the incidents
 fig_map = create_scatter_mapbox(df_call_for_service_sample, lat='latitude', lon='longitude', zoom=12, height=500, color='Call Type')
+fig_map.update_layout(
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777",
+)
 
 ######################## TAB 5 - YEARLY TREND LINE CHART ########################
 
@@ -183,9 +193,12 @@ df_call_for_service['year'] = df_call_for_service['Received DtTm'].dt.year
 yearly_calls = df_call_for_service.groupby('year').size()
 
 fig_yearly_trend = px.line(x=yearly_calls.index, y=yearly_calls.values, labels={'x': 'Year', 'y': 'Number of Calls'})
-fig_column_chart.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+fig_yearly_trend.update_layout(
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777",
 )
 ############################################################### PAGE 2 ###############################################################
 
@@ -196,6 +209,13 @@ df_grouped_2 = fire_incidents.groupby(fire_incidents['Incident Date'].dt.date).s
 
 # Create area chart
 fig_area_chart = px.area(df_grouped_2, x='Incident Date', y='Frequency', labels={'Incident Date': 'Incident Date', 'Frequency': 'Number of Fire Incidents'})
+fig_area_chart.update_layout(
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777",
+)
 
 ############################################################### PAGE 3 ###############################################################
 
@@ -209,7 +229,11 @@ pie_visual = go.Pie(labels=df1_sorted['Final Call Distress'], values=df1_sorted[
                     textinfo='label+percent', hoverinfo='value', 
                     hole=0.3, pull=[0.1 if i % 2 == 0 else 0 for i in range(len(df1_sorted))])
 
-layout = go.Layout(width=800, height=600)
+layout = go.Layout(width=800, height=600,paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777",)
 pie_visual_chart = go.Figure(data=[pie_visual], layout=layout)
 
 ######################## TAB 2 - CORRELATION MATRIX ########################
@@ -233,8 +257,11 @@ correlation_plot = px.imshow(corr,
 correlation_plot.update_layout(
     width=800,
     height=800,
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )
 
 ######################## TAB 3 - VIOLIN PLOT ########################
@@ -243,8 +270,11 @@ violin_plot = px.violin(fire_violations, x='Status', y='close date')
 
 # Update layout for better visibility
 violin_plot.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )
 
 ######################## TAB 4 - LINE CHART ########################
@@ -297,7 +327,8 @@ trace_plot.update_layout(shapes=[
         opacity=0.5,
         layer='below',
         line=dict(width=1),
-    )
+    ),
+    
 ])
 
 # Update the layout for better visibility
@@ -305,8 +336,11 @@ trace_plot.update_layout(
     xaxis_title='Index',
     yaxis_title='Time',
     showlegend=True,
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )
 
 ############################################################### PAGE 4 ###############################################################
@@ -327,8 +361,11 @@ incident_by_call_type_chart = create_bar_chart(call_type_counts_df, 'Call Type',
 
 # Update layout for better visibility
 incident_by_call_type_chart.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )
 
 ######################## TAB 2 - BAR CHART ########################
@@ -340,8 +377,11 @@ incident_by_neighborhood_chart = create_bar_chart(neighborhood_counts_df, 'Neigh
 
 # Update layout for better visibility
 incident_by_neighborhood_chart.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)', 
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )
 
 
@@ -362,6 +402,9 @@ average_response_time_chart = create_bar_chart(response_time_neighborhood_df, 'N
 
 # Update layout for better visibility
 average_response_time_chart.update_layout(
-    plot_bgcolor='white',  # Set a clean white plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)',  # Set a transparent paper background
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    xaxis=dict(gridcolor='lightgray'),
+    yaxis=dict(gridcolor='lightgray'),
+    font_color="#777"
 )

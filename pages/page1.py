@@ -3,15 +3,18 @@ import pandas as pd
 import plotly.express as px
 from dash import html, dcc
 from dash.dcc import Loading
-from pages.home.sidebar import layout as sidebar_layout  # Import the sidebar layout
+from pages.home.sidebar import layout as sidebar_layout
 from appshell.data_loader import fig_column_chart, pie_visual_chart, fig_map
-
+from dash import clientside_callback
+from dash import Output, Input
 graph_style = {
     "width": "75%",
     "height": "90%",
     "margin-left": "12vw",
     "margin-top": "4vh",
     "display": "block",
+    "background-color": "rgba(0, 0, 0, 0)",  # Transparent background
+    "color": "white",  # White font color
 }  # Adjusted styles for the graphs
 
 # Define the layout for page1
@@ -45,6 +48,7 @@ layout = html.Div(
                                         "height": "100%",
                                         "margin-top": "20px",
                                         "display": "block",
+                                        **graph_style,  # Apply the common style for spacing and initial dark mode
                                     },
                                 )
                             ],
@@ -81,6 +85,7 @@ layout = html.Div(
                                         "height": "100%",
                                         "margin-top": "20px",
                                         "display": "block",
+                                        **graph_style,  # Apply the common style for spacing and initial dark mode
                                     },
                                 )
                             ],
@@ -98,3 +103,4 @@ layout = html.Div(
     ],
     style={"margin-top": "100px"},
 )
+

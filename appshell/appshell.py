@@ -25,14 +25,14 @@ def create_home_link(label: str, icon=None) -> dmc.Anchor:
             ),
             label,
             size="xl",
-            href="/",
+            href="/",  # Set the href to the root path
             underline=False,
         )
     else:
         return dmc.Anchor(
             label,
             size="xl",
-            href="/",
+            href="/",  # Set the href to the root path
             underline=False,
         )
 
@@ -49,7 +49,7 @@ def create_header_link(icon: str, href: str, size: int=22, color: str="red") -> 
             color=color,
         ),
         href=href,
-        target="_blank",
+        target="_self",
     )
 
 def create_header() -> dmc.Header:
@@ -140,7 +140,7 @@ def create_appshell(app):
         },
         inherit=True,
         children=[
-            dcc.Store(id="theme-store", storage_type="local"),
+            dcc.Store(id="theme-store", storage_type="local",data={"colorScheme":"light"}),
             dcc.Location(id="url"),
             dmc.NotificationsProvider(
                 [
@@ -172,21 +172,28 @@ def display_page(pathname):
         return create_homepage_content
 
 clientside_callback(
-    """ function(data) { return data } """,
+    """ function(data) {
+        console.log("Received data:", data);
+        return data;
+    } """,
     Output("plotly-dash-multipage-app-provider", "theme"),
     Input("theme-store", "data"),
 )
 
 clientside_callback(
     """function(n_clicks, data) {
+        console.log("Button clicked:", n_clicks);
+        console.log("Current theme data:", data);
+
         if (data) {
             if (n_clicks) {
-                const scheme = data["colorScheme"] == "dark" ? "light" : "dark"
-                return { colorScheme: scheme } 
+                const scheme = data["colorScheme"] == "dark" ? "light" : "dark";
+                console.log("New color scheme:", scheme);
+                return { colorScheme: scheme };
             }
-            return dash_clientside.no_update
+            return dash_clientside.no_update;
         } else {
-            return { colorScheme: "light" }
+            return { colorScheme: "light" };
         }
     }""",
     Output("theme-store", "data"),

@@ -24,7 +24,7 @@ suggestions_text = """
 7. Conduct periodic evaluations and updates to the fire incident response plan, taking into account evolving community dynamics and changes in risk factors.
 """
 
-heading_style = {"color": "rgb(255, 107, 107)", "text-align": "center", "margin-top": "20px"}
+heading_style = {"color": "rgb(255, 107, 107)", "text-align": "center", "margin-top": "50px"}
 
 layout = html.Div(
     [
@@ -41,12 +41,12 @@ layout = html.Div(
                 dcc.Markdown(suggestions_text),
             ],
             style={
-                "width": "95%",
+                "width": "80%",
                 "float": "left",
-                "height": "90%",
+                "height": "calc(100vh - 100px)",
                 "padding": "20px",
-                "margin-top": "50px",
             },
         ),
-    ]
+    ],
+    style={"margin-top": "100px", "width": "100%", "height": "calc(100vh - 100px)"},
 )
