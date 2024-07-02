@@ -55,6 +55,11 @@ To run this project locally, follow these steps:
     python app.py
     ```
 
+## Walkthrough Video
+
+Click [here](./assets/Video%20Walkthrough.mp4) to watch the video.
+
+
 ## Usage
 
 1. After running the app, open your web browser and go to `http://127.0.0.1:8050/`.
