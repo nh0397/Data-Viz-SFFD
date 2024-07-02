@@ -1,5 +1,4 @@
-# San Francisco Fire Department Statistics Dashboard
-
+# FlareGraph
 ## Summary
 This project presents a collaborative effort on fire department statistics in San Francisco using data visualization tools like Dash and Python. The dashboard showcases various visualizations and insights aimed at improving fire safety measures.
 
